@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.FlowLayout; 
+
+
+public class SimpleSwingApp {
+
+    public static void main(String[] args) {
+        // Swing nên được chạy trên Event Dispatch Thread (EDT)
+        // Đây là cách làm chuẩn để đảm bảo an toàn luồng (thread-safety)
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
+        
+        JFrame frame = new JFrame("Ứng dụng Quản lý HRM (Swing)");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setSize(400, 200); // Kích thước cửa sổ
+        frame.setLocationRelativeTo(null); 
+
+        
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 25));
+
+        
+        JLabel welcomeLabel = new JLabel("Chào mừng đến với dự án HRM!");
+        welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(18.0f)); 
+
+       
+        JButton helloButton = new JButton("Bấm vào tôi!");
+
+        
+        helloButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Nút đã được bấm!");
+                welcomeLabel.setText("Bạn đã bắt đầu xây dựng ứng dụng HRM!");
+            }
+        });
+
+        
+        frame.getContentPane().add(welcomeLabel);
+        frame.getContentPane().add(helloButton);
+
+       
+        frame.setVisible(true);
+    }
+}
